@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 	DisplayFile *displayFile = new DisplayFile();
 
 	Menu* menu = new Menu(vbox);
-	Interface* interface = new Interface(vbox);
+	Interface* interface = new Interface(vbox, displayFile);
 
 	vbox->show_all();
 	Gtk::Main::run(window);

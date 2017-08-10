@@ -20,6 +20,7 @@ public:
 private:
 	string name;
 	list<pair<int, int>> coordinates;
+	list<pair<int, int>> coordinatesView;
 	Type type;
 	void getObjectType();
 };

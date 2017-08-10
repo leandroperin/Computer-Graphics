@@ -1,6 +1,8 @@
 #include "Interface.hpp"
 
-Interface::Interface(Gtk::Box *vbox) {
+Interface::Interface(Gtk::Box *vbox, DisplayFile *_displayFile) {
+	displayFile = _displayFile;
+
 	Gtk::Grid *grid = Gtk::manage(new Gtk::Grid());
 	grid->set_column_spacing(10);
 	grid->set_border_width(10);
