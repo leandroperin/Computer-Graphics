@@ -1,5 +1,6 @@
 #include "Menu.hpp"
 #include "Interface.hpp"
+#include "displayFile.hpp"
 
 int main(int argc, char* argv[]) {
 	Gtk::Main kit(argc, argv);
@@ -10,6 +11,8 @@ int main(int argc, char* argv[]) {
 
 	Gtk::Box *vbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
 	window.add(*vbox);
+
+	DisplayFile *displayFile = new DisplayFile();
 
 	Menu* menu = new Menu(vbox);
 	Interface* interface = new Interface(vbox);

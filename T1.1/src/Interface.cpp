@@ -1,5 +1,4 @@
 #include "Interface.hpp"
-#include "DrawingArea.hpp"
 
 Interface::Interface(Gtk::Box *vbox) {
 	Gtk::Grid *grid = Gtk::manage(new Gtk::Grid());
@@ -124,6 +123,7 @@ Interface::Interface(Gtk::Box *vbox) {
 	frame_viewport->set_vexpand(true);
 	grid->attach(*frame_viewport, 40, 0, 50, 2);
 
-	DrawingArea drawingArea;
-	frame_viewport->add(drawingArea);
+	// DrawingArea *drawingArea = new DrawingArea();
+	// frame_viewport->add(*drawingArea);
+	// drawingArea->show();
 }
