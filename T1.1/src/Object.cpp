@@ -1,4 +1,4 @@
-#include "Object.hpp"
+#include "../includes/Object.hpp"
 
 Object::Object(string _name, list<pair<int, int>> _coordinates) {
 	name = _name;

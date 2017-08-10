@@ -1,4 +1,4 @@
-#include "Interface.hpp"
+#include "../includes/Interface.hpp"
 
 Interface::Interface(Gtk::Box *vbox, DisplayFile *_displayFile) {
 	displayFile = _displayFile;

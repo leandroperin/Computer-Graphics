@@ -1,4 +1,4 @@
-#include "Menu.hpp"
+#include "../includes/Menu.hpp"
 
 Menu::Menu(Gtk::Box *vbox) {
 	Gtk::MenuBar *menuBar = Gtk::manage(new Gtk::MenuBar());

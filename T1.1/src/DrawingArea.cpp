@@ -1,4 +1,4 @@
-#include "DrawingArea.hpp"
+#include "../includes/DrawingArea.hpp"
 #include <cairomm/context.h>
 #include <iostream>
 

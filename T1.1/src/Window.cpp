@@ -1,4 +1,4 @@
-#include "Window.hpp"
+#include "../includes/Window.hpp"
 
 Window::Window(int _Xwmin, int _Ywmin, int _Xwmax, int _Ywmax, DisplayFile *_displayFile) {
 	Xwmin = _Xwmin;
