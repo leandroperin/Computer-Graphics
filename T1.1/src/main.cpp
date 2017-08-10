@@ -1,6 +1,6 @@
 #include "Menu.hpp"
 #include "Interface.hpp"
-#include "displayFile.hpp"
+#include "DisplayFile.hpp"
 
 int main(int argc, char* argv[]) {
 	Gtk::Main kit(argc, argv);

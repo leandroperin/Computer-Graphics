@@ -1,4 +1,4 @@
-#include "displayFile.hpp"
+#include "DisplayFile.hpp"
 
 DisplayFile::DisplayFile() {
 	pair<int, int> coordX (2, 2);

@@ -2,7 +2,7 @@
 #define INTERFACE_HPP
 
 #include <gtkmm.h>
-#include "displayFile.hpp"
+#include "DisplayFile.hpp"
 
 class Interface {
 public:
