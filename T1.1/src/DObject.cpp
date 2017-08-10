@@ -1,33 +1,31 @@
-#include "../includes/Object.hpp"
+#include "../includes/DObject.hpp"
 
-Object::Object(string _name, list<pair<int, int>> _coordinates) {
+DObject::DObject(string _name, list<pair<int, int>> _coordinates) {
 	name = _name;
 	coordinates = _coordinates;
 
 	getObjectType();
 }
 
-string Object::getName() {
+string DObject::getName() {
 	return name;
 }
 
-list<pair<int, int>> Object::getCoordinates() {
+list<pair<int, int>> DObject::getCoordinates() {
 	return coordinates;
 }
 
-string Object::getType() {
+string DObject::getType() {
 	if (type == POINT) return "Point";
 	else if (type == LINE) return "Line";
 	return "Polygon";
 }
 
-void Object::setCoordinates(list<pair<int, int>> _coordinates) {
-	coordinates = _coordinates;
-
-	getObjectType();
+void DObject::setCoordinatesView(list<pair<int, int>> _coordinates) {
+	coordinatesView = _coordinates;
 }
 
-void Object::getObjectType() {
+void DObject::getObjectType() {
 	int coordinatesSize = coordinates.size();
 
 	if (coordinatesSize == 1) type = POINT;

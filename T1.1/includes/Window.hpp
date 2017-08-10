@@ -13,6 +13,11 @@ public:
 	void moveUp(double _distance);
 	void moveDown(double _distance);
 	void moveLeft(double _distance);
+	DisplayFile* getDisplayFile();
+	int getXwmin() { return Xwmin; };
+	int getYwmin() { return Ywmin; };
+	int getYwmax() { return Xwmax; };
+	int getXwmax() { return Ywmax; };
 
 private:
 	int Xwmin;

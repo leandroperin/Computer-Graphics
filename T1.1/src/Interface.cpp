@@ -1,7 +1,7 @@
 #include "../includes/Interface.hpp"
 
-Interface::Interface(Gtk::Box *vbox, DisplayFile *_displayFile) {
-	displayFile = _displayFile;
+Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
+	viewport = _viewport;
 
 	Gtk::Grid *grid = Gtk::manage(new Gtk::Grid());
 	grid->set_column_spacing(10);
@@ -99,11 +99,13 @@ Interface::Interface(Gtk::Box *vbox, DisplayFile *_displayFile) {
 	box_zoom->set_border_width(10);
 	box_window->add(*box_zoom);
 
-	Gtk::Button *button_zoomUp = Gtk::manage(new Gtk::Button("Zoom +"));
-	Gtk::Button *button_zoomDown = Gtk::manage(new Gtk::Button("Zoom -"));
+	Gtk::Button *button_zoomIn = Gtk::manage(new Gtk::Button("Zoom +"));
+	button_zoomIn->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_zoomIn_click));
+	Gtk::Button *button_zoomOut = Gtk::manage(new Gtk::Button("Zoom -"));
+	button_zoomOut->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_zoomOut_click));
 	Gtk::Button *button_setWindow = Gtk::manage(new Gtk::Button("Set Window"));
-	box_zoom->add(*button_zoomUp);
-	box_zoom->add(*button_zoomDown);
+	box_zoom->add(*button_zoomIn);
+	box_zoom->add(*button_zoomOut);
 	box_zoom->add(*button_setWindow);
 
 	Gtk::Frame *frame_projection = Gtk::manage(new Gtk::Frame("Projeção"));
@@ -125,7 +127,16 @@ Interface::Interface(Gtk::Box *vbox, DisplayFile *_displayFile) {
 	frame_viewport->set_vexpand(true);
 	grid->attach(*frame_viewport, 40, 0, 50, 2);
 
-	// DrawingArea *drawingArea = new DrawingArea();
-	// frame_viewport->add(*drawingArea);
-	// drawingArea->show();
+	frame_viewport->add(*viewport);
+	viewport->show();
+}
+
+void Interface::on_zoomIn_click() {
+	viewport->getWindow()->zoomIn(1.5);
+	viewport->queue_draw();
+}
+
+void Interface::on_zoomOut_click() {
+	viewport->getWindow()->zoomOut(1.5);
+	viewport->queue_draw();
 }

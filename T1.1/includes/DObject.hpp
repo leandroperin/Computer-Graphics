@@ -1,5 +1,5 @@
-#ifndef OBJECT_HPP
-#define OBJECT_HPP
+#ifndef DOBJECT_HPP
+#define DOBJECT_HPP
 
 #include <list>
 #include <utility>
@@ -9,13 +9,13 @@ using namespace std;
 
 enum Type { POINT, LINE, POLYGON };
 
-class Object {
+class DObject {
 public:
-	Object(string _name, list<pair<int, int>> _coordinates);
+	DObject(string _name, list<pair<int, int>> _coordinates);
 	string getName();
 	list<pair<int, int>> getCoordinates();
 	string getType();
-	void setCoordinates(list<pair<int, int>> _coordinates);
+	void setCoordinatesView(list<pair<int, int>> _coordinates);
 
 private:
 	string name;

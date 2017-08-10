@@ -4,7 +4,7 @@
 #include <string>
 #include <list>
 #include <map>
-#include "Object.hpp"
+#include "DObject.hpp"
 
 using namespace std;
 
@@ -12,14 +12,14 @@ class DisplayFile {
 public:
 	DisplayFile();
 	virtual ~DisplayFile();
-	void addObject(Object* _object);
-	Object* getObjectByName(string _name);
+	void addObject(DObject* _dobject);
+	DObject* getObjectByName(string _name);
 	void removeObject(string _name);
 	list<string> getAllNames();
-	list<Object*> getAllObjects();
+	list<DObject*> getAllObjects();
 
 private:
-	map<string, Object*> objects;
+	map<string, DObject*> objects;
 
 };
 

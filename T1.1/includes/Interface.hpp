@@ -2,14 +2,16 @@
 #define INTERFACE_HPP
 
 #include <gtkmm.h>
-#include "DisplayFile.hpp"
+#include "Viewport.hpp"
 
 class Interface {
 public:
-	Interface(Gtk::Box *vbox, DisplayFile *_displayFile);
+	Interface(Gtk::Box *vbox, Viewport *_viewport);
 
 private:
-	DisplayFile *displayFile;
+	Viewport *viewport;
+	void on_zoomIn_click();
+	void on_zoomOut_click();
 
 };
 
