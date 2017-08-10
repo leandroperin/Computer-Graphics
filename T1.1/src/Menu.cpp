@@ -27,5 +27,5 @@ void Menu::on_menu_quit_click() {
 }
 
 void Menu::on_menu_insertObject_click() {
-	exit(0);
+	//TODO
 }

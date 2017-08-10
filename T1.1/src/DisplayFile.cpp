@@ -1,21 +1,31 @@
 #include "../includes/DisplayFile.hpp"
 
 DisplayFile::DisplayFile() {
-	pair<int, int> coordX (150, 50);
-	pair<int, int> coordY (150, 100);
+	pair<int, int> coordX (200, 250);
+	pair<int, int> coordY (250, 250);
 	list<pair<int, int>> line;
 	line.push_back(coordX);
 	line.push_back(coordY);
 	string oName = "Test Line";
 	addObject(new DObject(oName, line));
 
-	pair<int, int> coordX2 (150, 100);
-	pair<int, int> coordY2 (200, 100);
-	list<pair<int, int>> line2;
-	line2.push_back(coordX2);
-	line2.push_back(coordY2);
-	string oName2 = "Test Line 2";
-	addObject(new DObject(oName2, line2));
+	pair<int, int> coordX2 (250, 260);
+	list<pair<int, int>> dot;
+	dot.push_back(coordX2);
+	string pName = "Test Dot";
+	addObject(new DObject(pName, dot));
+
+	pair<int, int> coordX3 (100, 100);
+	pair<int, int> coordX4 (100, 200);
+	pair<int, int> coordX5 (200, 200);
+	pair<int, int> coordX6 (200, 100);
+	list<pair<int, int>> polygon;
+	polygon.push_back(coordX3);
+	polygon.push_back(coordX4);
+	polygon.push_back(coordX5);
+	polygon.push_back(coordX6);
+	string ppName = "Test Polygon";
+	addObject(new DObject(ppName, polygon));
 }
 
 DisplayFile::~DisplayFile() {

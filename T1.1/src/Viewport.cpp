@@ -1,12 +1,12 @@
 #include "../includes/Viewport.hpp"
 
 Viewport::Viewport(DisplayFile *_displayFile) {
-	window = new Window(0, 0, 200, 200, _displayFile);
+	window = new Window(0, 0, 500, 500, _displayFile);
 
 	Xvmin = 0;
 	Yvmin = 0;
-	Xvmax = 200;
-	Yvmax = 200;
+	Xvmax = 500;
+	Yvmax = 500;
 }
 
 Viewport::~Viewport() {}
@@ -31,7 +31,13 @@ Window* Viewport::getWindow() {
 	return window;
 }
 
+void Viewport::setObjectsList(Gtk::TextView* _objectsList) {
+	objectsList = _objectsList;
+}
+
 bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
+	objectsList->get_buffer()->set_text("");
+
 	Gtk::Allocation allocation = get_allocation();
 	const int width = allocation.get_width();
 	const int height = allocation.get_height();
@@ -56,10 +62,34 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 
 		(*it)->setCoordinatesView(coordView);
 
+		if ((*it)->getType() == "Point") {
+			cr->move_to(get<0>(coordView.front()), get<1>(coordView.front()));
+			cr->line_to(get<0>(coordView.front()) + 1, get<1>(coordView.front()) + 1);
+			cr->stroke();
+
+			objectsList->get_buffer()->set_text(objectsList->get_buffer()->get_text() + (*it)->getName() + " (PONTO)\n");
+		}
+
 		if ((*it)->getType() == "Line") {
 			cr->move_to(get<0>(coordView.front()), get<1>(coordView.front()));
 			cr->line_to(get<0>(coordView.back()), get<1>(coordView.back()));
 			cr->stroke();
+
+			objectsList->get_buffer()->set_text(objectsList->get_buffer()->get_text() + (*it)->getName() + " (RETA)\n");
+		}
+
+		if ((*it)->getType() == "Polygon") {
+			cr->move_to(get<0>(coordView.front()), get<1>(coordView.front()));
+			
+			for (auto it2 = coordView.begin()++; it2 != coordView.end(); ++it2) {
+				cr->line_to(get<0>(*it2), get<1>(*it2));
+			}
+
+			cr->close_path();
+			cr->stroke();
+			cr->fill();
+
+			objectsList->get_buffer()->set_text(objectsList->get_buffer()->get_text() + (*it)->getName() + " (POLÍGONO)\n");
 		}
 	}
 

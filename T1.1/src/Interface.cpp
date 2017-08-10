@@ -27,6 +27,7 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	Gtk::TextView *textView_objects = Gtk::manage(new Gtk::TextView());	
 	textView_objects->set_editable(false);
 	textView_objects->set_cursor_visible(false);
+	viewport->setObjectsList(textView_objects);
 	scrolledWindow_objects->add(*textView_objects);
 
 	Gtk::Frame *frame_window = Gtk::manage(new Gtk::Frame("Window"));
@@ -65,6 +66,12 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	Gtk::Button *button_Up = Gtk::manage(new Gtk::Button("Up"));
 	Gtk::Button *button_Down = Gtk::manage(new Gtk::Button("Down"));
 	Gtk::Button *button_Right = Gtk::manage(new Gtk::Button("Right"));
+
+	button_Left->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_moveLeft_click));
+	button_Up->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_moveUp_click));
+	button_Down->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_moveDown_click));
+	button_Right->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_moveRight_click));
+
 	box_window_2->add(*button_Left);
 	box_window_2->add(*button_Up);
 	box_window_2->add(*button_Down);
@@ -100,10 +107,12 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	box_window->add(*box_zoom);
 
 	Gtk::Button *button_zoomIn = Gtk::manage(new Gtk::Button("Zoom +"));
-	button_zoomIn->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_zoomIn_click));
 	Gtk::Button *button_zoomOut = Gtk::manage(new Gtk::Button("Zoom -"));
-	button_zoomOut->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_zoomOut_click));
 	Gtk::Button *button_setWindow = Gtk::manage(new Gtk::Button("Set Window"));
+
+	button_zoomIn->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_zoomIn_click));
+	button_zoomOut->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_zoomOut_click));
+
 	box_zoom->add(*button_zoomIn);
 	box_zoom->add(*button_zoomOut);
 	box_zoom->add(*button_setWindow);
@@ -138,5 +147,25 @@ void Interface::on_zoomIn_click() {
 
 void Interface::on_zoomOut_click() {
 	viewport->getWindow()->zoomOut(1.5);
+	viewport->queue_draw();
+}
+
+void Interface::on_moveLeft_click() {
+	viewport->getWindow()->moveLeft(50.0);
+	viewport->queue_draw();
+}
+
+void Interface::on_moveUp_click() {
+	viewport->getWindow()->moveUp(50.0);
+	viewport->queue_draw();
+}
+
+void Interface::on_moveDown_click() {
+	viewport->getWindow()->moveDown(50.0);
+	viewport->queue_draw();
+}
+
+void Interface::on_moveRight_click() {
+	viewport->getWindow()->moveRight(50.0);
 	viewport->queue_draw();
 }

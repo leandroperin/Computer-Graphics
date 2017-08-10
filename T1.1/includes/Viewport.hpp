@@ -15,6 +15,7 @@ public:
 	double getXvmax();
 	double getYvmax();
 	Window* getWindow();
+	void setObjectsList(Gtk::TextView* _objectsList);
 
 private:
 	bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;
@@ -24,6 +25,7 @@ private:
 	double Xvmax; 
 	double Yvmax;
 	pair<int, int> transform(pair<int, int> _coord);
+	Gtk::TextView* objectsList;
 
 };
 
