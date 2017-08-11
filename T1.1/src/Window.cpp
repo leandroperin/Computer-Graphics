@@ -31,19 +31,19 @@ void Window::zoomOut(double _zoomScale) {
 }
 
 void Window::moveRight(double _distance) {
-	//TODO
+	// TODO
 }
 
 void Window::moveUp(double _distance) {
-	//TODO
+	// TODO
 }
 
 void Window::moveDown(double _distance) {
-	//TODO
+	// TODO
 }
 
 void Window::moveLeft(double _distance) {
-	//TODO
+	// TODO
 }
 
 DisplayFile* Window::getDisplayFile() {

@@ -1,6 +1,8 @@
 #include "../includes/Menu.hpp"
 
-Menu::Menu(Gtk::Box *vbox) {
+Menu::Menu(Gtk::Box *vbox, Viewport* _viewport) {
+	viewport = _viewport;
+
 	Gtk::MenuBar *menuBar = Gtk::manage(new Gtk::MenuBar());
 	vbox->pack_start(*menuBar, Gtk::PACK_SHRINK, 0);
 
@@ -27,5 +29,5 @@ void Menu::on_menu_quit_click() {
 }
 
 void Menu::on_menu_insertObject_click() {
-	//TODO
+	// TODO
 }

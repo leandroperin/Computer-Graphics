@@ -42,7 +42,6 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	const int width = allocation.get_width();
 	const int height = allocation.get_height();
 
-	// coordinates for the center of the window
 	int xc, yc;
 	xc = width / 2;
 	yc = height / 2;
@@ -59,7 +58,7 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 		for (auto it2 = coord.begin(); it2 != coord.end(); ++it2) {
 			coordView.push_back(transform(*it2));
 		}
-
+		
 		(*it)->setCoordinatesView(coordView);
 
 		if ((*it)->getType() == "Point") {

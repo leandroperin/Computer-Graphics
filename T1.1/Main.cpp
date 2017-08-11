@@ -15,7 +15,7 @@ int main(int argc, char* argv[]) {
 	DisplayFile *displayFile = new DisplayFile();
 	Viewport *viewport = new Viewport(displayFile);
 
-	Menu* menu = new Menu(vbox);
+	Menu* menu = new Menu(vbox, viewport);
 	Interface* interface = new Interface(vbox, viewport);
 
 	vbox->show_all();
