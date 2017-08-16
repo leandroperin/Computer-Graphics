@@ -37,6 +37,12 @@ void Menu::on_menu_insertObject_click() {
 	Gtk::Box *vbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
 	insertWindow.add(*vbox);
 
+	Gtk::Label *label_object_name = Gtk::manage(new Gtk::Label("Nome do Objeto:"));
+	vbox->add(*label_object_name);
+
+	entry_object_name = Gtk::manage(new Gtk::Entry());
+	vbox->add(*entry_object_name);
+
 	Gtk::Grid *grid = Gtk::manage(new Gtk::Grid());
 	grid->set_column_spacing(5);
 	grid->set_border_width(5);
@@ -51,12 +57,6 @@ void Menu::on_menu_insertObject_click() {
 	box_point->set_border_width(10);
 	frame_point->add(*box_point);
 
-	Gtk::Label *label_point_name = Gtk::manage(new Gtk::Label("Nome do Ponto:"));
-	box_point->add(*label_point_name);
-
-	entry_point_name = Gtk::manage(new Gtk::Entry());
-	box_point->add(*entry_point_name);
-
 	Gtk::Label *label_point = Gtk::manage(new Gtk::Label("Coordenada:"));
 	box_point->add(*label_point);
 
@@ -70,6 +70,10 @@ void Menu::on_menu_insertObject_click() {
 	button_add_point->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_point_click));
 	box_point->add(*button_add_point);
 
+	Gtk::Button *button_add_to_polygon = Gtk::manage(new Gtk::Button("Adicionar ao Polígono"));
+	button_add_to_polygon->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_to_polygon_click));
+	box_point->add(*button_add_to_polygon);
+
 	Gtk::Frame *frame_line = Gtk::manage(new Gtk::Frame("Reta"));
 	frame_line->set_vexpand(true);
 	grid->attach(*frame_line, 50, 0, 40, 2);
@@ -82,19 +86,19 @@ void Menu::on_menu_insertObject_click() {
 	Gtk::Label *label_line_1 = Gtk::manage(new Gtk::Label("Coordenada 1:"));
 	box_line->add(*label_line_1);
 
-	Gtk::Entry *entry_line_x_1 = Gtk::manage(new Gtk::Entry());
+	entry_line_x_1 = Gtk::manage(new Gtk::Entry());
 	box_line->add(*entry_line_x_1);
 
-	Gtk::Entry *entry_line_y_1 = Gtk::manage(new Gtk::Entry());
+	entry_line_y_1 = Gtk::manage(new Gtk::Entry());
 	box_line->add(*entry_line_y_1);
 
 	Gtk::Label *label_line_2 = Gtk::manage(new Gtk::Label("Coordenada 2:"));
 	box_line->add(*label_line_2);
 
-	Gtk::Entry *entry_line_x_2 = Gtk::manage(new Gtk::Entry());
+	entry_line_x_2 = Gtk::manage(new Gtk::Entry());
 	box_line->add(*entry_line_x_2);
 
-	Gtk::Entry *entry_line_y_2 = Gtk::manage(new Gtk::Entry());
+	entry_line_y_2 = Gtk::manage(new Gtk::Entry());
 	box_line->add(*entry_line_y_2);
 
 	Gtk::Button *button_add_line = Gtk::manage(new Gtk::Button("Inserir Reta"));
@@ -110,6 +114,19 @@ void Menu::on_menu_insertObject_click() {
 	box_polygon->set_border_width(10);
 	frame_polygon->add(*box_polygon);
 
+	Gtk::ScrolledWindow *scrolledWindow_points = Gtk::manage(new Gtk::ScrolledWindow());
+	scrolledWindow_points->set_size_request(10, 195);
+	box_polygon->add(*scrolledWindow_points);
+
+	textView_points = Gtk::manage(new Gtk::TextView());	
+	textView_points->set_editable(false);
+	textView_points->set_cursor_visible(false);
+	scrolledWindow_points->add(*textView_points);
+
+	Gtk::Button *button_add_polygon = Gtk::manage(new Gtk::Button("Inserir Polígono"));
+	button_add_polygon->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_polygon_click));
+	box_polygon->add(*button_add_polygon);
+
 	vbox->show_all();
 	insertWindow.show();
 }
@@ -118,16 +135,37 @@ void Menu::on_add_point_click() {
 	pair<int,int> coord (atoi(entry_point_x->get_text().c_str()), atoi(entry_point_y->get_text().c_str()));
 	list<pair<int, int>> dot;
 	dot.push_back(coord);
-	string pName = entry_point_name->get_text().c_str();
-	entry_point_name->set_text("");
+	string pName = entry_object_name->get_text().c_str();
 	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, dot));
 	viewport->queue_draw();
 }
 
 void Menu::on_add_line_click() {
-
+	pair<int,int> coord1 (atoi(entry_line_x_1->get_text().c_str()), atoi(entry_line_y_1->get_text().c_str()));
+	pair<int,int> coord2 (atoi(entry_line_x_2->get_text().c_str()), atoi(entry_line_y_2->get_text().c_str()));
+	list<pair<int, int>> dot;
+	dot.push_back(coord1);
+	dot.push_back(coord2);
+	string pName = entry_object_name->get_text().c_str();
+	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, dot));
+	viewport->queue_draw();
 }
 
 void Menu::on_add_polygon_click() {
+	string pName = entry_object_name->get_text().c_str();
+	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, polygonPoints));
+	viewport->queue_draw();
 
+	polygonPoints.clear();
+	textView_points->get_buffer()->set_text("");
+}
+
+void Menu::on_add_to_polygon_click() {
+	pair<int,int> coord (atoi(entry_point_x->get_text().c_str()), atoi(entry_point_y->get_text().c_str()));
+	polygonPoints.push_back(coord);
+
+	textView_points->get_buffer()->set_text(textView_points->get_buffer()->get_text() + 
+							entry_object_name->get_text().c_str() + ": " + 
+							entry_point_x->get_text().c_str() + "," + 
+							entry_point_y->get_text().c_str() + "\n");
 }
