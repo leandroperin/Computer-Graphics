@@ -22,19 +22,21 @@ Menu::Menu(Gtk::Box *vbox, Viewport* _viewport) {
 	Gtk::MenuItem *menuItem_quit = Gtk::manage(new Gtk::MenuItem("_Fechar Aplicação", true));
 	menuItem_quit->signal_activate().connect(sigc::mem_fun(*this, &Menu::on_menu_quit_click));
 	optionsMenu->append(*menuItem_quit);
+
+	buildWindow();
 }
 
 void Menu::on_menu_quit_click() {
 	exit(0);
 }
 
-void Menu::on_menu_insertObject_click() {
+void Menu::buildWindow() {
 	insertWindow.set_title("Inserir Objeto");
 	insertWindow.set_default_size(450, 300);
 	insertWindow.set_resizable(false);
 	insertWindow.set_modal(true);
 
-	Gtk::Box *vbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
+	vbox = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
 	insertWindow.add(*vbox);
 
 	Gtk::Label *label_object_name = Gtk::manage(new Gtk::Label("Nome do Objeto:"));
@@ -126,7 +128,9 @@ void Menu::on_menu_insertObject_click() {
 	Gtk::Button *button_add_polygon = Gtk::manage(new Gtk::Button("Inserir Polígono"));
 	button_add_polygon->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_polygon_click));
 	box_polygon->add(*button_add_polygon);
+}
 
+void Menu::on_menu_insertObject_click() {
 	vbox->show_all();
 	insertWindow.show();
 }
