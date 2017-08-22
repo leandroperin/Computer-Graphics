@@ -128,10 +128,11 @@ void Menu::buildWindow() {
 	Gtk::Button *button_add_polygon = Gtk::manage(new Gtk::Button("Inserir Polígono"));
 	button_add_polygon->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_polygon_click));
 	box_polygon->add(*button_add_polygon);
+
+	vbox->show_all();
 }
 
 void Menu::on_menu_insertObject_click() {
-	vbox->show_all();
 	insertWindow.show();
 }
 
