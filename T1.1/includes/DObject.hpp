@@ -16,6 +16,7 @@ public:
 	string getName();
 	list<pair<double, double>> getCoordinates();
 	string getType();
+	pair<double, double> getObjectCenter();
 	void setCoordinates(list<pair<double, double>> _coordinates);
 	void setCoordinatesView(list<pair<double, double>> _coordinates);
 	void translade(double Dx, double Dy);
@@ -28,7 +29,6 @@ private:
 	list<pair<double, double>> coordinatesView;
 	Type type;
 	void getObjectType();
-	pair<double, double> getObjectCenter();
 };
 
 #endif
