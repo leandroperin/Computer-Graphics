@@ -193,10 +193,6 @@ void Interface::on_resize_click() {
 }
 
 void Interface::on_world_rotation_click() {
-
-}
-
-void Interface::on_object_rotation_click() {
 	string objName = entry_object_name->get_text().c_str();
 	double o = atof(entry_rotation->get_text().c_str());
 
@@ -205,6 +201,10 @@ void Interface::on_object_rotation_click() {
 	obj->rotate(o);
 
 	viewport->queue_draw();
+}
+
+void Interface::on_object_rotation_click() {
+	
 }
 
 void Interface::on_fixed_rotation_click() {
