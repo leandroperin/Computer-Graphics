@@ -43,63 +43,76 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	box_window_1->set_border_width(10);
 	box_window->add(*box_window_1);
 
-	Gtk::Label *label_passo_1 = Gtk::manage(new Gtk::Label("Passo:"));
-	box_window_1->add(*label_passo_1);
+	Gtk::Frame *frame_manipulation = Gtk::manage(new Gtk::Frame("Manipular Objetos"));
+	box_window->add(*frame_manipulation);
 
-	Gtk::Entry *entry_passo = Gtk::manage(new Gtk::Entry());
-	box_window_1->add(*entry_passo);
+	Gtk::Box *box_manipulation = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 0));
+	box_manipulation->set_spacing(5);
+	box_manipulation->set_border_width(10);
+	frame_manipulation->add(*box_manipulation);
 
-	Gtk::Label *label_passo_2 = Gtk::manage(new Gtk::Label("%"));
-	box_window_1->add(*label_passo_2);
+	Gtk::Box *box_manipulation_1 = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
+	box_manipulation_1->set_border_width(10);
+	box_manipulation->add(*box_manipulation_1);
 
-	Gtk::Button *button_In = Gtk::manage(new Gtk::Button("In"));
-	Gtk::Button *button_Out = Gtk::manage(new Gtk::Button("Out"));
-	box_window_1->add(*button_In);
-	box_window_1->add(*button_Out);
+	Gtk::Box *box_manipulation_name = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 0));
+	box_manipulation_name->set_spacing(5);
+	box_manipulation_name->set_border_width(10);
+	box_manipulation_1->add(*box_manipulation_name);
 
-	Gtk::Box *box_window_2 = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 0));
-	box_window_2->set_spacing(5);
-	box_window_2->set_border_width(10);
-	box_window->add(*box_window_2);
+	Gtk::Label *label_object_name = Gtk::manage(new Gtk::Label("Nome do Objeto: "));
+	box_manipulation_name->add(*label_object_name);
 
-	Gtk::Button *button_Left = Gtk::manage(new Gtk::Button("Left"));
-	Gtk::Button *button_Up = Gtk::manage(new Gtk::Button("Up"));
-	Gtk::Button *button_Down = Gtk::manage(new Gtk::Button("Down"));
-	Gtk::Button *button_Right = Gtk::manage(new Gtk::Button("Right"));
+	Gtk::Entry *entry_object_name = Gtk::manage(new Gtk::Entry());
+	entry_object_name->set_hexpand(true);
+	box_manipulation_name->add(*entry_object_name);
 
-	button_Left->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_moveLeft_click));
-	button_Up->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_moveUp_click));
-	button_Down->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_moveDown_click));
-	button_Right->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_moveRight_click));
+	Gtk::Box *box_manipulation_2 = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 0));
+	box_manipulation_2->set_spacing(5);
+	box_manipulation_2->set_border_width(10);
+	box_manipulation_1->add(*box_manipulation_2);
 
-	box_window_2->add(*button_Left);
-	box_window_2->add(*button_Up);
-	box_window_2->add(*button_Down);
-	box_window_2->add(*button_Right);
+	Gtk::Label *label_X = Gtk::manage(new Gtk::Label("X:"));
+	box_manipulation_2->add(*label_X);
 
-	Gtk::Frame *frame_rotation = Gtk::manage(new Gtk::Frame("Rotação"));
-	box_window->add(*frame_rotation);
+	Gtk::Entry *entry_X = Gtk::manage(new Gtk::Entry());
+	box_manipulation_2->add(*entry_X);
 
-	Gtk::Box *box_degrees = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 0));
-	box_degrees->set_spacing(5);
-	box_degrees->set_border_width(10);
-	frame_rotation->add(*box_degrees);
+	Gtk::Label *label_Y = Gtk::manage(new Gtk::Label("Y:"));
+	box_manipulation_2->add(*label_Y);
+
+	Gtk::Entry *entry_Y = Gtk::manage(new Gtk::Entry());
+	box_manipulation_2->add(*entry_Y);
+
+	Gtk::Button *button_translade = Gtk::manage(new Gtk::Button("Translação"));
+	Gtk::Button *button_resize = Gtk::manage(new Gtk::Button("Escalonamento"));
+
+	button_translade->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_translade_click));
+	button_resize->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_resize_click));
+
+	box_manipulation_2->add(*button_translade);
+	box_manipulation_2->add(*button_resize);
+
+	Gtk::Box *box_manipulation_3 = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 0));
+	box_manipulation_3->set_spacing(5);
+	box_manipulation_3->set_border_width(10);
+	box_manipulation_1->add(*box_manipulation_3);
 
 	Gtk::Label *label_rotation_1 = Gtk::manage(new Gtk::Label("Graus:"));
-	box_degrees->add(*label_rotation_1);
+	box_manipulation_3->add(*label_rotation_1);
 
 	Gtk::Entry *entry_rotation = Gtk::manage(new Gtk::Entry());
-	box_degrees->add(*entry_rotation);
+	box_manipulation_3->add(*entry_rotation);
 
 	Gtk::Label *label_rotation_2 = Gtk::manage(new Gtk::Label("º"));
-	box_degrees->add(*label_rotation_2);
+	box_manipulation_3->add(*label_rotation_2);
 
-	Gtk::Button *button_X = Gtk::manage(new Gtk::Button("X"));
-	Gtk::Button *button_Y = Gtk::manage(new Gtk::Button("Y"));
-	Gtk::Button *button_Z = Gtk::manage(new Gtk::Button("Z"));
-	box_degrees->add(*button_X);
-	box_degrees->add(*button_Y);
-	box_degrees->add(*button_Z);
+	Gtk::Button *button_world_center = Gtk::manage(new Gtk::Button("Centro do Mundo"));
+	Gtk::Button *button_object_center = Gtk::manage(new Gtk::Button("Centro do Objeto"));
+	Gtk::Button *button_point = Gtk::manage(new Gtk::Button("Ponto Fixo"));
+	box_manipulation_3->add(*button_world_center);
+	box_manipulation_3->add(*button_object_center);
+	box_manipulation_3->add(*button_point);
 
 	Gtk::Box *box_zoom = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 0));
 	box_zoom->set_spacing(5);
@@ -150,22 +163,8 @@ void Interface::on_zoomOut_click() {
 	viewport->queue_draw();
 }
 
-void Interface::on_moveLeft_click() {
-	viewport->getWindow()->moveLeft(50.0);
-	viewport->queue_draw();
+void Interface::on_translade_click() {
 }
 
-void Interface::on_moveUp_click() {
-	viewport->getWindow()->moveUp(50.0);
-	viewport->queue_draw();
-}
-
-void Interface::on_moveDown_click() {
-	viewport->getWindow()->moveDown(50.0);
-	viewport->queue_draw();
-}
-
-void Interface::on_moveRight_click() {
-	viewport->getWindow()->moveRight(50.0);
-	viewport->queue_draw();
+void Interface::on_resize_click() {
 }

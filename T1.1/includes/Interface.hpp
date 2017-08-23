@@ -12,10 +12,8 @@ private:
 	Viewport *viewport;
 	void on_zoomIn_click();
 	void on_zoomOut_click();
-	void on_moveLeft_click();
-	void on_moveUp_click();
-	void on_moveDown_click();
-	void on_moveRight_click();
+	void on_translade_click();
+	void on_resize_click();
 
 };
 
