@@ -165,34 +165,34 @@ void Interface::on_zoomOut_click() {
 
 void Interface::on_translade_click() {
 	string objName = entry_object_name->get_text().c_str();
-	int Dx = atoi(entry_X->get_text().c_str());
-	int Dy = atoi(entry_Y->get_text().c_str());
+	double Dx = atof(entry_X->get_text().c_str());
+	double Dy = atof(entry_Y->get_text().c_str());
 
 	translade(objName, Dx, Dy);
 
 	viewport->queue_draw();
 }
 
-void Interface::translade(string objName, int Dx, int Dy) {
+void Interface::translade(string objName, double Dx, double Dy) {
 	DObject* obj = viewport->getWindow()->getDisplayFile()->getObjectByName(objName);
 
-	list<pair<int, int>> coordList = obj->getCoordinates();
-	list<pair<int, int>> _coordList;
+	list<pair<double, double>> coordList = obj->getCoordinates();
+	list<pair<double, double>> _coordList;
 
-	int T[3][3];
-	T[0][0] = 1; T[0][1] = 0; T[0][2] = 0;
-	T[1][0] = 0; T[1][1] = 1; T[1][2] = 0;
-	T[2][0] = Dx; T[2][1] = Dy; T[2][2] = 1;
+	double T[3][3];
+	T[0][0] = 1.0; T[0][1] = 0.0; T[0][2] = 0.0;
+	T[1][0] = 0.0; T[1][1] = 1.0; T[1][2] = 0.0;
+	T[2][0] = Dx; T[2][1] = Dy; T[2][2] = 1.0;
 
 	for (auto it = coordList.begin(); it != coordList.end(); ++it) {
-		int _P[1][3];
-		int P[1][3];
+		double _P[1][3];
+		double P[1][3];
 
-		_P[0][0] = 0; _P[0][1] = 0; _P[0][2] = 0;
+		_P[0][0] = 0.0; _P[0][1] = 0.0; _P[0][2] = 0.0;
 
 		P[0][0] = get<0>(*it);
 		P[0][1] = get<1>(*it);
-		P[0][2] = 1;
+		P[0][2] = 1.0;
 
 		// Matrix multiplication
 		for (int i = 0; i < 3; i++) {
@@ -201,10 +201,10 @@ void Interface::translade(string objName, int Dx, int Dy) {
 			}
 		}
 
-		int _x = _P[0][0];
-		int _y = _P[0][1];
+		double _x = _P[0][0];
+		double _y = _P[0][1];
 
-		pair<int,int> _coord (_x, _y);
+		pair<double,double> _coord (_x, _y);
 		_coordList.push_back(_coord);
 	}
 
@@ -212,4 +212,49 @@ void Interface::translade(string objName, int Dx, int Dy) {
 }
 
 void Interface::on_resize_click() {
+	string objName = entry_object_name->get_text().c_str();
+	double Sx = atof(entry_X->get_text().c_str());
+	double Sy = atof(entry_Y->get_text().c_str());
+
+	resize(objName, Sx, Sy);
+
+	viewport->queue_draw();
+}
+
+void Interface::resize(string objName, double Sx, double Sy) {
+	DObject* obj = viewport->getWindow()->getDisplayFile()->getObjectByName(objName);
+
+	list<pair<double, double>> coordList = obj->getCoordinates();
+	list<pair<double, double>> _coordList;
+
+	double T[3][3];
+	T[0][0] = Sx; T[0][1] = 0.0; T[0][2] = 0.0;
+	T[1][0] = 0.0; T[1][1] = Sy; T[1][2] = 0.0;
+	T[2][0] = 0.0; T[2][1] = 0.0; T[2][2] = 1.0;
+
+	for (auto it = coordList.begin(); it != coordList.end(); ++it) {
+		double _P[1][3];
+		double P[1][3];
+
+		_P[0][0] = 0.0; _P[0][1] = 0.0; _P[0][2] = 0.0;
+
+		P[0][0] = get<0>(*it);
+		P[0][1] = get<1>(*it);
+		P[0][2] = 1.0;
+
+		// Matrix multiplication
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				_P[0][i] += P[0][j] * T[j][i];
+			}
+		}
+
+		double _x = _P[0][0];
+		double _y = _P[0][1];
+
+		pair<double,double> _coord (_x, _y);
+		_coordList.push_back(_coord);
+	}
+
+	obj->setCoordinates(_coordList);
 }

@@ -24,7 +24,7 @@ private:
 	double Yvmin; 
 	double Xvmax; 
 	double Yvmax;
-	pair<int, int> transform(pair<int, int> _coord);
+	pair<double, double> transform(pair<double, double> _coord);
 	Gtk::TextView* objectsList;
 
 };

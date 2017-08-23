@@ -1,6 +1,6 @@
 #include "../includes/DObject.hpp"
 
-DObject::DObject(string _name, list<pair<int, int>> _coordinates) {
+DObject::DObject(string _name, list<pair<double, double>> _coordinates) {
 	name = _name;
 	coordinates = _coordinates;
 
@@ -11,7 +11,7 @@ string DObject::getName() {
 	return name;
 }
 
-list<pair<int, int>> DObject::getCoordinates() {
+list<pair<double, double>> DObject::getCoordinates() {
 	return coordinates;
 }
 
@@ -21,11 +21,11 @@ string DObject::getType() {
 	return "Polygon";
 }
 
-void DObject::setCoordinatesView(list<pair<int, int>> _coordinates) {
+void DObject::setCoordinatesView(list<pair<double, double>> _coordinates) {
 	coordinatesView = _coordinates;
 }
 
-void DObject::setCoordinates(list<pair<int, int>> _coordinates) {
+void DObject::setCoordinates(list<pair<double, double>> _coordinates) {
 	coordinates = _coordinates;
 }
 

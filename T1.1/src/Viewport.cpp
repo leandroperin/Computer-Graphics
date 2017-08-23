@@ -52,8 +52,8 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 
 	cr->set_source_rgb(0.8, 0.0, 0.0);
 	for (auto it = objects.begin(); it != objects.end(); ++it) {
-		list<pair<int, int>> coord = (*it)->getCoordinates();	
-		list<pair<int, int>> coordView;
+		list<pair<double, double>> coord = (*it)->getCoordinates();	
+		list<pair<double, double>> coordView;
 
 		for (auto it2 = coord.begin(); it2 != coord.end(); ++it2) {
 			coordView.push_back(transform(*it2));
@@ -94,7 +94,7 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	return true;
 }
 
-pair<int, int> Viewport::transform(pair<int, int> _coord) {
+pair<double, double> Viewport::transform(pair<double, double> _coord) {
 	double Xw = get<0>(_coord);
 	double Yw = get<1>(_coord);
 
@@ -102,5 +102,5 @@ pair<int, int> Viewport::transform(pair<int, int> _coord) {
 
 	double Yv = (1.0 - (Yw - window->getYwmin()) / (window->getYwmax() - window->getYwmin())) * (Yvmax - Yvmin);
 
-	return pair<int, int>(Xv, Yv);
+	return pair<double, double>(Xv, Yv);
 }

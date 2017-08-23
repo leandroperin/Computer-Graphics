@@ -137,8 +137,8 @@ void Menu::on_menu_insertObject_click() {
 }
 
 void Menu::on_add_point_click() {
-	pair<int,int> coord (atoi(entry_point_x->get_text().c_str()), atoi(entry_point_y->get_text().c_str()));
-	list<pair<int, int>> dot;
+	pair<double,double> coord (atof(entry_point_x->get_text().c_str()), atof(entry_point_y->get_text().c_str()));
+	list<pair<double, double>> dot;
 	dot.push_back(coord);
 	string pName = entry_object_name->get_text().c_str();
 	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, dot));
@@ -146,9 +146,9 @@ void Menu::on_add_point_click() {
 }
 
 void Menu::on_add_line_click() {
-	pair<int,int> coord1 (atoi(entry_line_x_1->get_text().c_str()), atoi(entry_line_y_1->get_text().c_str()));
-	pair<int,int> coord2 (atoi(entry_line_x_2->get_text().c_str()), atoi(entry_line_y_2->get_text().c_str()));
-	list<pair<int, int>> dot;
+	pair<double,double> coord1 (atof(entry_line_x_1->get_text().c_str()), atof(entry_line_y_1->get_text().c_str()));
+	pair<double,double> coord2 (atof(entry_line_x_2->get_text().c_str()), atof(entry_line_y_2->get_text().c_str()));
+	list<pair<double, double>> dot;
 	dot.push_back(coord1);
 	dot.push_back(coord2);
 	string pName = entry_object_name->get_text().c_str();
@@ -166,7 +166,7 @@ void Menu::on_add_polygon_click() {
 }
 
 void Menu::on_add_to_polygon_click() {
-	pair<int,int> coord (atoi(entry_point_x->get_text().c_str()), atoi(entry_point_y->get_text().c_str()));
+	pair<double,double> coord (atof(entry_point_x->get_text().c_str()), atof(entry_point_y->get_text().c_str()));
 	polygonPoints.push_back(coord);
 
 	textView_points->get_buffer()->set_text(textView_points->get_buffer()->get_text() + 

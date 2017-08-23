@@ -11,17 +11,17 @@ enum Type { POINT, LINE, POLYGON };
 
 class DObject {
 public:
-	DObject(string _name, list<pair<int, int>> _coordinates);
+	DObject(string _name, list<pair<double, double>> _coordinates);
 	string getName();
-	list<pair<int, int>> getCoordinates();
+	list<pair<double, double>> getCoordinates();
 	string getType();
-	void setCoordinates(list<pair<int, int>> _coordinates);
-	void setCoordinatesView(list<pair<int, int>> _coordinates);
+	void setCoordinates(list<pair<double, double>> _coordinates);
+	void setCoordinatesView(list<pair<double, double>> _coordinates);
 
 private:
 	string name;
-	list<pair<int, int>> coordinates;
-	list<pair<int, int>> coordinatesView;
+	list<pair<double, double>> coordinates;
+	list<pair<double, double>> coordinatesView;
 	Type type;
 	void getObjectType();
 };

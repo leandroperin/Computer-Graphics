@@ -27,7 +27,7 @@ private:
 	Gtk::Entry* entry_line_x_2;
 	Gtk::Entry* entry_line_y_2;
 	Gtk::TextView* textView_points;
-	list<pair<int, int>> polygonPoints;
+	list<pair<double, double>> polygonPoints;
 
 };
 
