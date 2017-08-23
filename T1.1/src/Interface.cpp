@@ -101,7 +101,7 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	Gtk::Label *label_rotation_1 = Gtk::manage(new Gtk::Label("Graus:"));
 	box_manipulation_3->add(*label_rotation_1);
 
-	Gtk::Entry *entry_rotation = Gtk::manage(new Gtk::Entry());
+	entry_rotation = Gtk::manage(new Gtk::Entry());
 	box_manipulation_3->add(*entry_rotation);
 
 	Gtk::Label *label_rotation_2 = Gtk::manage(new Gtk::Label("º"));
@@ -109,10 +109,15 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 
 	Gtk::Button *button_world_center = Gtk::manage(new Gtk::Button("Centro do Mundo"));
 	Gtk::Button *button_object_center = Gtk::manage(new Gtk::Button("Centro do Objeto"));
-	Gtk::Button *button_point = Gtk::manage(new Gtk::Button("Ponto Fixo"));
+	Gtk::Button *button_fixed_point = Gtk::manage(new Gtk::Button("Ponto Fixo"));
+
+	button_world_center->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_world_rotation_click));
+	button_object_center->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_object_rotation_click));
+	button_fixed_point->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_fixed_rotation_click));
+
 	box_manipulation_3->add(*button_world_center);
 	box_manipulation_3->add(*button_object_center);
-	box_manipulation_3->add(*button_point);
+	box_manipulation_3->add(*button_fixed_point);
 
 	Gtk::Box *box_zoom = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_HORIZONTAL, 0));
 	box_zoom->set_spacing(5);
@@ -185,4 +190,23 @@ void Interface::on_resize_click() {
 	obj->resize(Sx, Sy);
 
 	viewport->queue_draw();
+}
+
+void Interface::on_world_rotation_click() {
+
+}
+
+void Interface::on_object_rotation_click() {
+	string objName = entry_object_name->get_text().c_str();
+	double o = atof(entry_rotation->get_text().c_str());
+
+	DObject* obj = viewport->getWindow()->getDisplayFile()->getObjectByName(objName);
+
+	obj->rotate(o);
+
+	viewport->queue_draw();
+}
+
+void Interface::on_fixed_rotation_click() {
+	
 }

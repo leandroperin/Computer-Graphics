@@ -4,6 +4,7 @@
 #include <list>
 #include <utility>
 #include <string>
+#include <math.h>
 
 using namespace std;
 
@@ -19,6 +20,7 @@ public:
 	void setCoordinatesView(list<pair<double, double>> _coordinates);
 	void translade(double Dx, double Dy);
 	void resize(double Sx, double Sy);
+	void rotate(double o);
 
 private:
 	string name;

@@ -1,5 +1,7 @@
 #include "../includes/DObject.hpp"
 
+#define PI 3.14159265
+
 DObject::DObject(string _name, list<pair<double, double>> _coordinates) {
 	name = _name;
 	coordinates = _coordinates;
@@ -78,6 +80,44 @@ void DObject::resize(double Sx, double Sy) {
 	double T[3][3];
 	T[0][0] = Sx; T[0][1] = 0.0; T[0][2] = 0.0;
 	T[1][0] = 0.0; T[1][1] = Sy; T[1][2] = 0.0;
+	T[2][0] = 0.0; T[2][1] = 0.0; T[2][2] = 1.0;
+
+	for (auto it = coordinates.begin(); it != coordinates.end(); ++it) {
+		double _P[1][3];
+		double P[1][3];
+
+		_P[0][0] = 0.0; _P[0][1] = 0.0; _P[0][2] = 0.0;
+
+		P[0][0] = get<0>(*it);
+		P[0][1] = get<1>(*it);
+		P[0][2] = 1.0;
+
+		// Matrix multiplication
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				_P[0][i] += P[0][j] * T[j][i];
+			}
+		}
+
+		double _x = _P[0][0];
+		double _y = _P[0][1];
+
+		pair<double,double> _coord (_x, _y);
+		_coordList.push_back(_coord);
+	}
+
+	coordinates = _coordList;
+}
+
+void DObject::rotate(double o) {
+	double sinO = sin(o*PI/180);
+	double cosO = cos(o*PI/180);
+
+	list<pair<double, double>> _coordList;
+
+	double T[3][3];
+	T[0][0] = cosO; T[0][1] = 0.0-sinO; T[0][2] = 0.0;
+	T[1][0] = sinO; T[1][1] = cosO; T[1][2] = 0.0;
 	T[2][0] = 0.0; T[2][1] = 0.0; T[2][2] = 1.0;
 
 	for (auto it = coordinates.begin(); it != coordinates.end(); ++it) {
