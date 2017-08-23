@@ -165,10 +165,14 @@ void Interface::on_zoomOut_click() {
 
 void Interface::on_translade_click() {
 	string objName = entry_object_name->get_text().c_str();
-	DObject* obj = viewport->getWindow()->getDisplayFile()->getObjectByName(objName);
-
 	int Dx = atoi(entry_X->get_text().c_str());
 	int Dy = atoi(entry_Y->get_text().c_str());
+
+	translade(objName, Dx, Dy);
+}
+
+void Interface::translade(string objName, int Dx, int Dy) {
+	DObject* obj = viewport->getWindow()->getDisplayFile()->getObjectByName(objName);
 
 	list<pair<int, int>> coordList = obj->getCoordinates();
 	list<pair<int, int>> _coordList;
