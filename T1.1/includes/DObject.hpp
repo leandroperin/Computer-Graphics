@@ -28,6 +28,7 @@ private:
 	list<pair<double, double>> coordinatesView;
 	Type type;
 	void getObjectType();
+	pair<double, double> getObjectCenter();
 };
 
 #endif
