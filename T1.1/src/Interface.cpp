@@ -169,6 +169,8 @@ void Interface::on_translade_click() {
 	int Dy = atoi(entry_Y->get_text().c_str());
 
 	translade(objName, Dx, Dy);
+
+	viewport->queue_draw();
 }
 
 void Interface::translade(string objName, int Dx, int Dy) {
@@ -177,16 +179,36 @@ void Interface::translade(string objName, int Dx, int Dy) {
 	list<pair<int, int>> coordList = obj->getCoordinates();
 	list<pair<int, int>> _coordList;
 
+	int T[3][3];
+	T[0][0] = 1; T[0][1] = 0; T[0][2] = 0;
+	T[1][0] = 0; T[1][1] = 1; T[1][2] = 0;
+	T[2][0] = Dx; T[2][1] = Dy; T[2][2] = 1;
+
 	for (auto it = coordList.begin(); it != coordList.end(); ++it) {
-		int _x = get<0>(*it) + Dx;
-		int _y = get<1>(*it) + Dy;
+		int _P[1][3];
+		int P[1][3];
+
+		_P[0][0] = 0; _P[0][1] = 0; _P[0][2] = 0;
+
+		P[0][0] = get<0>(*it);
+		P[0][1] = get<1>(*it);
+		P[0][2] = 1;
+
+		// Matrix multiplication
+		for (int i = 0; i < 3; i++) {
+			for (int j = 0; j < 3; j++) {
+				_P[0][i] += P[0][j] * T[j][i];
+			}
+		}
+
+		int _x = _P[0][0];
+		int _y = _P[0][1];
 
 		pair<int,int> _coord (_x, _y);
 		_coordList.push_back(_coord);
 	}
 
 	obj->setCoordinates(_coordList);
-	viewport->queue_draw();
 }
 
 void Interface::on_resize_click() {
