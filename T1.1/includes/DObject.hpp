@@ -15,6 +15,7 @@ public:
 	string getName();
 	list<pair<int, int>> getCoordinates();
 	string getType();
+	void setCoordinates(list<pair<int, int>> _coordinates);
 	void setCoordinatesView(list<pair<int, int>> _coordinates);
 
 private:

@@ -63,7 +63,7 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	Gtk::Label *label_object_name = Gtk::manage(new Gtk::Label("Nome do Objeto: "));
 	box_manipulation_name->add(*label_object_name);
 
-	Gtk::Entry *entry_object_name = Gtk::manage(new Gtk::Entry());
+	entry_object_name = Gtk::manage(new Gtk::Entry());
 	entry_object_name->set_hexpand(true);
 	box_manipulation_name->add(*entry_object_name);
 
@@ -75,13 +75,13 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	Gtk::Label *label_X = Gtk::manage(new Gtk::Label("X:"));
 	box_manipulation_2->add(*label_X);
 
-	Gtk::Entry *entry_X = Gtk::manage(new Gtk::Entry());
+	entry_X = Gtk::manage(new Gtk::Entry());
 	box_manipulation_2->add(*entry_X);
 
 	Gtk::Label *label_Y = Gtk::manage(new Gtk::Label("Y:"));
 	box_manipulation_2->add(*label_Y);
 
-	Gtk::Entry *entry_Y = Gtk::manage(new Gtk::Entry());
+	entry_Y = Gtk::manage(new Gtk::Entry());
 	box_manipulation_2->add(*entry_Y);
 
 	Gtk::Button *button_translade = Gtk::manage(new Gtk::Button("Translação"));
@@ -164,6 +164,25 @@ void Interface::on_zoomOut_click() {
 }
 
 void Interface::on_translade_click() {
+	string objName = entry_object_name->get_text().c_str();
+	DObject* obj = viewport->getWindow()->getDisplayFile()->getObjectByName(objName);
+
+	int Dx = atoi(entry_X->get_text().c_str());
+	int Dy = atoi(entry_Y->get_text().c_str());
+
+	list<pair<int, int>> coordList = obj->getCoordinates();
+	list<pair<int, int>> _coordList;
+
+	for (auto it = coordList.begin(); it != coordList.end(); ++it) {
+		int _x = get<0>(*it) + Dx;
+		int _y = get<1>(*it) + Dy;
+
+		pair<int,int> _coord (_x, _y);
+		_coordList.push_back(_coord);
+	}
+
+	obj->setCoordinates(_coordList);
+	viewport->queue_draw();
 }
 
 void Interface::on_resize_click() {

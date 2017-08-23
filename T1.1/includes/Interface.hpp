@@ -10,6 +10,9 @@ public:
 
 private:
 	Viewport *viewport;
+	Gtk::Entry *entry_object_name;
+	Gtk::Entry *entry_X;
+	Gtk::Entry *entry_Y;
 	void on_zoomIn_click();
 	void on_zoomOut_click();
 	void on_translade_click();

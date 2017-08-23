@@ -25,6 +25,10 @@ void DObject::setCoordinatesView(list<pair<int, int>> _coordinates) {
 	coordinatesView = _coordinates;
 }
 
+void DObject::setCoordinates(list<pair<int, int>> _coordinates) {
+	coordinates = _coordinates;
+}
+
 void DObject::getObjectType() {
 	int coordinatesSize = coordinates.size();
 
