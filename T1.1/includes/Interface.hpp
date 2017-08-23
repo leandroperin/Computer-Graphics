@@ -16,9 +16,7 @@ private:
 	void on_zoomIn_click();
 	void on_zoomOut_click();
 	void on_translade_click();
-	void translade(string objName, double Dx, double Dy);
 	void on_resize_click();
-	void resize(string objName, double Sx, double Sy);
 };
 
 #endif

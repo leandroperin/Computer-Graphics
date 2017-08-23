@@ -17,6 +17,8 @@ public:
 	string getType();
 	void setCoordinates(list<pair<double, double>> _coordinates);
 	void setCoordinatesView(list<pair<double, double>> _coordinates);
+	void translade(double Dx, double Dy);
+	void resize(double Sx, double Sy);
 
 private:
 	string name;
