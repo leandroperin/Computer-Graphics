@@ -221,5 +221,16 @@ void Interface::on_object_rotation_click() {
 }
 
 void Interface::on_fixed_rotation_click() {
-	
+	string objName = entry_object_name->get_text().c_str();
+	double o = atof(entry_rotation->get_text().c_str());
+	double x = atof(entry_X->get_text().c_str());
+	double y = atof(entry_Y->get_text().c_str());
+
+	DObject* obj = viewport->getWindow()->getDisplayFile()->getObjectByName(objName);
+
+	obj->translade(-x, -y);
+	obj->rotate(o);
+	obj->translade(x, y);
+
+	viewport->queue_draw();
 }
