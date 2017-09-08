@@ -2,15 +2,20 @@
 
 #define PI 3.14159265
 
-DObject::DObject(string _name, list<pair<double, double>> _coordinates) {
+DObject::DObject(string _name, list<pair<double, double>> _coordinates, bool _toFill) {
 	name = _name;
 	coordinates = _coordinates;
+	toFill = _toFill;
 
 	getObjectType();
 }
 
 string DObject::getName() {
 	return name;
+}
+
+bool DObject::getToFill() {
+	return toFill;
 }
 
 list<pair<double, double>> DObject::getCoordinates() {

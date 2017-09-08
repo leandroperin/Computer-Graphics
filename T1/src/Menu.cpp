@@ -76,6 +76,9 @@ void Menu::buildWindow() {
 	button_add_to_polygon->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_to_polygon_click));
 	box_point->add(*button_add_to_polygon);
 
+	button_fill_polygon = Gtk::manage(new Gtk::CheckButton("Preencher Polígono"));
+	box_point->add(*button_fill_polygon);
+
 	Gtk::Frame *frame_line = Gtk::manage(new Gtk::Frame("Reta"));
 	frame_line->set_vexpand(true);
 	grid->attach(*frame_line, 50, 0, 40, 2);
@@ -141,7 +144,7 @@ void Menu::on_add_point_click() {
 	list<pair<double, double>> dot;
 	dot.push_back(coord);
 	string pName = entry_object_name->get_text().c_str();
-	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, dot));
+	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, dot, false));
 	viewport->queue_draw();
 }
 
@@ -152,13 +155,17 @@ void Menu::on_add_line_click() {
 	dot.push_back(coord1);
 	dot.push_back(coord2);
 	string pName = entry_object_name->get_text().c_str();
-	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, dot));
+	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, dot, false));
 	viewport->queue_draw();
+}
+
+bool Menu::getToFill() {
+	return button_fill_polygon->get_active();
 }
 
 void Menu::on_add_polygon_click() {
 	string pName = entry_object_name->get_text().c_str();
-	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, polygonPoints));
+	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, polygonPoints, getToFill()));
 	viewport->queue_draw();
 
 	polygonPoints.clear();

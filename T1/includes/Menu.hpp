@@ -16,6 +16,7 @@ private:
 	void on_add_polygon_click();
 	void on_add_to_polygon_click();
 	void buildWindow();
+	bool getToFill();
 	Viewport* viewport;
 	Gtk::Window insertWindow;
 	Gtk::Box* vbox;
@@ -27,6 +28,7 @@ private:
 	Gtk::Entry* entry_line_x_2;
 	Gtk::Entry* entry_line_y_2;
 	Gtk::TextView* textView_points;
+	Gtk::CheckButton* button_fill_polygon;
 	list<pair<double, double>> polygonPoints;
 
 };

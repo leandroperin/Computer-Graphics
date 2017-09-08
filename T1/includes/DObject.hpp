@@ -12,7 +12,7 @@ enum Type { POINT, LINE, POLYGON };
 
 class DObject {
 public:
-	DObject(string _name, list<pair<double, double>> _coordinates);
+	DObject(string _name, list<pair<double, double>> _coordinates, bool _toFill);
 	string getName();
 	list<pair<double, double>> getCoordinates();
 	list<pair<double, double>> getCoordinatesView();
@@ -25,6 +25,7 @@ public:
 	void translade(double Dx, double Dy);
 	void resize(double Sx, double Sy);
 	void rotate(double o);
+	bool getToFill();
 
 private:
 	string name;
@@ -32,6 +33,7 @@ private:
 	list<pair<double, double>> coordinatesView;
 	list<pair<double, double>> coordinatesClipped;
 	Type type;
+	bool toFill;
 	void getObjectType();
 };
 

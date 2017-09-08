@@ -105,7 +105,10 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 			}
 
 			cr->close_path();
-			cr->stroke();
+			cr->stroke_preserve();
+
+			if ((*it)->getToFill())
+				cr->fill();
 
 			objectsList->get_buffer()->set_text(objectsList->get_buffer()->get_text() + (*it)->getName() + " (POLÍGONO)\n");
 		}
