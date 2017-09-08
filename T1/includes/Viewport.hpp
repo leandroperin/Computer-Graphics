@@ -4,7 +4,7 @@
 #include <gtkmm.h>
 #include <cairomm/context.h>
 #include <list>
-#include "Window.hpp"
+#include "Clipping.hpp"
 
 class Viewport : public Gtk::DrawingArea {
 public:

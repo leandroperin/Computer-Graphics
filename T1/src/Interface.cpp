@@ -135,20 +135,20 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	box_zoom->add(*button_zoomOut);
 	box_zoom->add(*button_setWindow);
 
-	Gtk::Frame *frame_projection = Gtk::manage(new Gtk::Frame("Projeção"));
-	box_window->add(*frame_projection);
+	Gtk::Frame *frame_clipping = Gtk::manage(new Gtk::Frame("Clipping de Reta"));
+	box_window->add(*frame_clipping);
 
-	Gtk::Box *box_projection = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
-	box_projection->set_spacing(5);
-	box_projection->set_border_width(10);
-	frame_projection->add(*box_projection);
+	Gtk::Box *box_clipping = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
+	box_clipping->set_spacing(5);
+	box_clipping->set_border_width(10);
+	frame_clipping->add(*box_clipping);
 
-	Gtk::RadioButton *radio_parallel = Gtk::manage(new Gtk::RadioButton("Paralela"));
-	Gtk::RadioButton *radio_perspective = Gtk::manage(new Gtk::RadioButton("Perspectiva"));
-	radio_perspective->join_group(*radio_parallel);
+	Gtk::RadioButton *radio_LiangBarsky = Gtk::manage(new Gtk::RadioButton("LiangBarsky"));
+	Gtk::RadioButton *radio_CohenSutherland = Gtk::manage(new Gtk::RadioButton("CohenSutherland"));
+	radio_CohenSutherland->join_group(*radio_LiangBarsky);
 
-	box_projection->add(*radio_parallel);
-	box_projection->add(*radio_perspective);
+	box_clipping->add(*radio_LiangBarsky);
+	box_clipping->add(*radio_CohenSutherland);
 
 	Gtk::Frame *frame_viewport = Gtk::manage(new Gtk::Frame("Viewport"));
 	frame_viewport->set_vexpand(true);

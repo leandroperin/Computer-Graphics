@@ -17,6 +17,14 @@ list<pair<double, double>> DObject::getCoordinates() {
 	return coordinates;
 }
 
+list<pair<double, double>> DObject::getCoordinatesView() {
+	return coordinatesView;
+}
+
+list<pair<double, double>> DObject::getCoordinatesClipped() {
+	return coordinatesClipped;
+}
+
 string DObject::getType() {
 	if (type == POINT) return "Point";
 	else if (type == LINE) return "Line";
@@ -29,6 +37,10 @@ void DObject::setCoordinatesView(list<pair<double, double>> _coordinates) {
 
 void DObject::setCoordinates(list<pair<double, double>> _coordinates) {
 	coordinates = _coordinates;
+}
+
+void DObject::setCoordinatesClipped(list<pair<double, double>> _coordinates) {
+	coordinatesClipped = _coordinates;
 }
 
 void DObject::getObjectType() {

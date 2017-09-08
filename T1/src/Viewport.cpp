@@ -36,6 +36,8 @@ void Viewport::setObjectsList(Gtk::TextView* _objectsList) {
 }
 
 bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
+	Clipping* clipping = new Clipping();
+
 	objectsList->get_buffer()->set_text("");
 
 	Gtk::Allocation allocation = get_allocation();
@@ -60,6 +62,9 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 		}
 		
 		(*it)->setCoordinatesView(coordView);
+
+		clipping->clip(window, (*it));
+		(*it)->setCoordinatesView((*it)->getCoordinatesClipped());
 
 		if ((*it)->getType() == "Point") {
 			cr->move_to(get<0>(coordView.front()), get<1>(coordView.front()));
@@ -90,6 +95,8 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 			objectsList->get_buffer()->set_text(objectsList->get_buffer()->get_text() + (*it)->getName() + " (POLÍGONO)\n");
 		}
 	}
+
+	delete clipping;
 
 	return true;
 }
