@@ -147,6 +147,9 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	Gtk::RadioButton *radio_CohenSutherland = Gtk::manage(new Gtk::RadioButton("CohenSutherland"));
 	radio_CohenSutherland->join_group(*radio_LiangBarsky);
 
+	viewport->setLiangBarskyRadio(radio_LiangBarsky);
+	viewport->setCohenSutherlandRadio(radio_CohenSutherland);
+
 	box_clipping->add(*radio_LiangBarsky);
 	box_clipping->add(*radio_CohenSutherland);
 

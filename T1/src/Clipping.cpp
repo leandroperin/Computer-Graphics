@@ -1,6 +1,8 @@
 #include "../includes/Clipping.hpp"
 
-Clipping::Clipping() {}
+Clipping::Clipping(int _lineClippingType) {
+	lineClippingType = _lineClippingType;
+}
 
 Clipping::~Clipping() {}
 
@@ -47,9 +49,9 @@ void Clipping::clip(Window* window, DObject* obj) {
 	if (obj->getType() == "Point")
 		clipPoint(window, obj);
 	else if (obj->getType() == "Line")
-		if (LINE_CLIP_TYPE == "LB")
+		if (lineClippingType == 1)
 			clipLiangBarsky(window, obj);
-		else
+		else if (lineClippingType == 2)
 			clipCohenSutherland(window, obj);
 	else
 		clipSutherlandHodgman(window, obj);

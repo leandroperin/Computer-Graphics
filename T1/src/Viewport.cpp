@@ -35,8 +35,23 @@ void Viewport::setObjectsList(Gtk::TextView* _objectsList) {
 	objectsList = _objectsList;
 }
 
+void Viewport::setLiangBarskyRadio(Gtk::RadioButton* radio) {
+	LiangBarskyRadio = radio;
+}
+
+void Viewport::setCohenSutherlandRadio(Gtk::RadioButton* radio) {
+	CohenSutherlandRadio = radio;
+}
+
+int Viewport::getLineClippingType() {
+	if (LiangBarskyRadio->get_active() == TRUE)
+		return 1;
+
+	return 2;
+}
+
 bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
-	Clipping* clipping = new Clipping();
+	Clipping* clipping = new Clipping(getLineClippingType());
 
 	objectsList->get_buffer()->set_text("");
 

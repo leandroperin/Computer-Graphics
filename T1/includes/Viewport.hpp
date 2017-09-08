@@ -16,6 +16,8 @@ public:
 	double getYvmax();
 	Window* getWindow();
 	void setObjectsList(Gtk::TextView* _objectsList);
+	void setLiangBarskyRadio(Gtk::RadioButton* radio);
+	void setCohenSutherlandRadio(Gtk::RadioButton* radio);
 
 private:
 	bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;
@@ -25,7 +27,10 @@ private:
 	double Xvmax; 
 	double Yvmax;
 	pair<double, double> transform(pair<double, double> _coord);
+	int getLineClippingType();
 	Gtk::TextView* objectsList;
+	Gtk::RadioButton* LiangBarskyRadio;
+	Gtk::RadioButton* CohenSutherlandRadio;
 
 };
 
