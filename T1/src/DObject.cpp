@@ -10,6 +10,13 @@ DObject::DObject(string _name, list<pair<double, double>> _coordinates, bool _to
 	getObjectType();
 }
 
+DObject::DObject(string _name, list<pair<double, double>> _coordinates, bool _toFill, Type _type) {
+	name = _name;
+	coordinates = _coordinates;
+	toFill = _toFill;
+	type = _type;
+}
+
 string DObject::getName() {
 	return name;
 }
@@ -33,7 +40,8 @@ list<pair<double, double>> DObject::getCoordinatesClipped() {
 string DObject::getType() {
 	if (type == POINT) return "Point";
 	else if (type == LINE) return "Line";
-	return "Polygon";
+	else if (type == POLYGON) return "Polygon";
+	return "Curve";
 }
 
 void DObject::setCoordinatesView(list<pair<double, double>> _coordinates) {

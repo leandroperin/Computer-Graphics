@@ -8,11 +8,12 @@
 
 using namespace std;
 
-enum Type { POINT, LINE, POLYGON };
+enum Type { POINT, LINE, POLYGON, CURVE };
 
 class DObject {
 public:
 	DObject(string _name, list<pair<double, double>> _coordinates, bool _toFill);
+	DObject(string _name, list<pair<double, double>> _coordinates, bool _toFill, Type _type);
 	string getName();
 	list<pair<double, double>> getCoordinates();
 	list<pair<double, double>> getCoordinatesView();

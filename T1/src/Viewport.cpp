@@ -68,8 +68,16 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 	list<DObject*> objects = window->getDisplayFile()->getAllObjects();
 
 	cr->set_source_rgb(0.8, 0.0, 0.0);
+
 	for (auto it = objects.begin(); it != objects.end(); ++it) {
-		list<pair<double, double>> coord = (*it)->getCoordinates();	
+		list<pair<double, double>> coord;
+
+		if ((*it)->getType() == "Curve") {
+			coord = Curva2::blend((*it));
+		} else {
+			coord = (*it)->getCoordinates();
+		}
+
 		list<pair<double, double>> coordView;
 
 		for (auto it2 = coord.begin(); it2 != coord.end(); ++it2) {
@@ -111,6 +119,18 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 				cr->fill();
 
 			objectsList->get_buffer()->set_text(objectsList->get_buffer()->get_text() + (*it)->getName() + " (POLÍGONO)\n");
+		}
+
+		if ((*it)->getType() == "Curve") {
+			cr->move_to(get<0>(coordView.front()), get<1>(coordView.front()));
+
+			for (auto it2 = coordView.begin()++; it2 != coordView.end(); ++it2) {
+				cr->line_to(get<0>(*it2), get<1>(*it2));
+			}
+
+			cr->stroke();
+
+			objectsList->get_buffer()->set_text(objectsList->get_buffer()->get_text() + (*it)->getName() + " (CURVA)\n");
 		}
 	}
 

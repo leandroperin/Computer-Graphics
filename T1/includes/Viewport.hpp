@@ -5,6 +5,7 @@
 #include <cairomm/context.h>
 #include <list>
 #include "Clipping.hpp"
+#include "Curva2.hpp"
 
 class Viewport : public Gtk::DrawingArea {
 public:

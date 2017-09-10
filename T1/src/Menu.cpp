@@ -72,7 +72,7 @@ void Menu::buildWindow() {
 	button_add_point->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_point_click));
 	box_point->add(*button_add_point);
 
-	Gtk::Button *button_add_to_polygon = Gtk::manage(new Gtk::Button("Adicionar ao Polígono"));
+	Gtk::Button *button_add_to_polygon = Gtk::manage(new Gtk::Button("Adicionar ao Polígono / Curva"));
 	button_add_to_polygon->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_to_polygon_click));
 	box_point->add(*button_add_to_polygon);
 
@@ -110,7 +110,7 @@ void Menu::buildWindow() {
 	button_add_line->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_line_click));
 	box_line->add(*button_add_line);
 
-	Gtk::Frame *frame_polygon = Gtk::manage(new Gtk::Frame("Polígono"));
+	Gtk::Frame *frame_polygon = Gtk::manage(new Gtk::Frame("Polígono / Curva"));
 	frame_polygon->set_vexpand(true);
 	grid->attach(*frame_polygon, 100, 0, 40, 2);
 
@@ -131,6 +131,10 @@ void Menu::buildWindow() {
 	Gtk::Button *button_add_polygon = Gtk::manage(new Gtk::Button("Inserir Polígono"));
 	button_add_polygon->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_polygon_click));
 	box_polygon->add(*button_add_polygon);
+
+	Gtk::Button *button_add_curve = Gtk::manage(new Gtk::Button("Inserir Curva"));
+	button_add_curve->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_curve_click));
+	box_polygon->add(*button_add_curve);
 
 	vbox->show_all();
 }
@@ -166,6 +170,16 @@ bool Menu::getToFill() {
 void Menu::on_add_polygon_click() {
 	string pName = entry_object_name->get_text().c_str();
 	viewport->getWindow()->getDisplayFile()->addObject(new DObject(pName, polygonPoints, getToFill()));
+	viewport->queue_draw();
+
+	polygonPoints.clear();
+	textView_points->get_buffer()->set_text("");
+}
+
+void Menu::on_add_curve_click() {
+	string cName = entry_object_name->get_text().c_str();
+
+	viewport->getWindow()->getDisplayFile()->addObject(new DObject(cName, polygonPoints, false, CURVE));
 	viewport->queue_draw();
 
 	polygonPoints.clear();
