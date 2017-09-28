@@ -16,6 +16,7 @@ private:
 	void on_add_line_click();
 	void on_add_polygon_click();
 	void on_add_curve_click();
+	void on_add_spline_click();
 	void on_add_to_polygon_click();
 	void buildWindow();
 	bool getToFill();

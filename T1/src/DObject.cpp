@@ -41,7 +41,8 @@ string DObject::getType() {
 	if (type == POINT) return "Point";
 	else if (type == LINE) return "Line";
 	else if (type == POLYGON) return "Polygon";
-	return "Curve";
+	else if (type == CURVE) return "Curve";
+	return "Spline";
 }
 
 void DObject::setCoordinatesView(list<pair<double, double>> _coordinates) {

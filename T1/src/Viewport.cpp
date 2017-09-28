@@ -74,6 +74,8 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 
 		if ((*it)->getType() == "Curve") {
 			coord = Curva2::blend((*it));
+		} else if ((*it)->getType() == "Spline") {
+			coord = BSpline::forwardDifferences((*it));
 		} else {
 			coord = (*it)->getCoordinates();
 		}
@@ -83,7 +85,7 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 		for (auto it2 = coord.begin(); it2 != coord.end(); ++it2) {
 			coordView.push_back(transform(*it2));
 		}
-		
+
 		(*it)->setCoordinatesView(coordView);
 
 		clipping->clip(window, (*it));
@@ -107,7 +109,7 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 
 		if ((*it)->getType() == "Polygon") {
 			cr->move_to(get<0>(coordView.front()), get<1>(coordView.front()));
-			
+
 			for (auto it2 = coordView.begin()++; it2 != coordView.end(); ++it2) {
 				cr->line_to(get<0>(*it2), get<1>(*it2));
 			}
@@ -131,6 +133,18 @@ bool Viewport::on_draw(const Cairo::RefPtr<Cairo::Context>& cr) {
 			cr->stroke();
 
 			objectsList->get_buffer()->set_text(objectsList->get_buffer()->get_text() + (*it)->getName() + " (CURVA)\n");
+		}
+
+		if ((*it)->getType() == "Spline") {
+			cr->move_to(get<0>(coordView.front()), get<1>(coordView.front()));
+
+			for (auto it2 = coordView.begin()++; it2 != coordView.end(); ++it2) {
+				cr->line_to(get<0>(*it2), get<1>(*it2));
+			}
+
+			cr->stroke();
+
+			objectsList->get_buffer()->set_text(objectsList->get_buffer()->get_text() + (*it)->getName() + " (B-SPLINE)\n");
 		}
 	}
 

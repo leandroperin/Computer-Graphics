@@ -6,6 +6,7 @@
 #include <list>
 #include "Clipping.hpp"
 #include "Curva2.hpp"
+#include "BSpline.hpp"
 
 class Viewport : public Gtk::DrawingArea {
 public:
@@ -23,9 +24,9 @@ public:
 private:
 	bool on_draw(const Cairo::RefPtr<Cairo::Context>& cr) override;
 	Window *window;
-	double Xvmin; 
-	double Yvmin; 
-	double Xvmax; 
+	double Xvmin;
+	double Yvmin;
+	double Xvmax;
 	double Yvmax;
 	pair<double, double> transform(pair<double, double> _coord);
 	int getLineClippingType();

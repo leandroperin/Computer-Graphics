@@ -8,7 +8,7 @@
 
 using namespace std;
 
-enum Type { POINT, LINE, POLYGON, CURVE };
+enum Type { POINT, LINE, POLYGON, CURVE, SPLINE };
 
 class DObject {
 public:

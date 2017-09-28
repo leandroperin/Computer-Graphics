@@ -123,7 +123,7 @@ void Menu::buildWindow() {
 	scrolledWindow_points->set_size_request(10, 195);
 	box_polygon->add(*scrolledWindow_points);
 
-	textView_points = Gtk::manage(new Gtk::TextView());	
+	textView_points = Gtk::manage(new Gtk::TextView());
 	textView_points->set_editable(false);
 	textView_points->set_cursor_visible(false);
 	scrolledWindow_points->add(*textView_points);
@@ -135,6 +135,10 @@ void Menu::buildWindow() {
 	Gtk::Button *button_add_curve = Gtk::manage(new Gtk::Button("Inserir Curva"));
 	button_add_curve->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_curve_click));
 	box_polygon->add(*button_add_curve);
+
+	Gtk::Button *button_add_spline = Gtk::manage(new Gtk::Button("Inserir B-Spline"));
+	button_add_spline->signal_clicked().connect(sigc::mem_fun(*this, &Menu::on_add_spline_click));
+	box_polygon->add(*button_add_spline);
 
 	vbox->show_all();
 }
@@ -186,12 +190,24 @@ void Menu::on_add_curve_click() {
 	textView_points->get_buffer()->set_text("");
 }
 
+void Menu::on_add_spline_click() {
+	if (polygonPoints.size() >= 4) {
+		string cName = entry_object_name->get_text().c_str();
+
+		viewport->getWindow()->getDisplayFile()->addObject(new DObject(cName, polygonPoints, false, SPLINE));
+		viewport->queue_draw();
+
+		polygonPoints.clear();
+		textView_points->get_buffer()->set_text("");
+	}
+}
+
 void Menu::on_add_to_polygon_click() {
 	pair<double,double> coord (atof(entry_point_x->get_text().c_str()), atof(entry_point_y->get_text().c_str()));
 	polygonPoints.push_back(coord);
 
-	textView_points->get_buffer()->set_text(textView_points->get_buffer()->get_text() + 
-							entry_object_name->get_text().c_str() + ": " + 
-							entry_point_x->get_text().c_str() + "," + 
+	textView_points->get_buffer()->set_text(textView_points->get_buffer()->get_text() +
+							entry_object_name->get_text().c_str() + ": " +
+							entry_point_x->get_text().c_str() + "," +
 							entry_point_y->get_text().c_str() + "\n");
 }
