@@ -126,14 +126,12 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 
 	Gtk::Button *button_zoomIn = Gtk::manage(new Gtk::Button("Zoom +"));
 	Gtk::Button *button_zoomOut = Gtk::manage(new Gtk::Button("Zoom -"));
-	Gtk::Button *button_setWindow = Gtk::manage(new Gtk::Button("Set Window"));
 
 	button_zoomIn->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_zoomIn_click));
 	button_zoomOut->signal_clicked().connect(sigc::mem_fun(*this, &Interface::on_zoomOut_click));
 
 	box_zoom->add(*button_zoomIn);
 	box_zoom->add(*button_zoomOut);
-	box_zoom->add(*button_setWindow);
 
 	Gtk::Frame *frame_clipping = Gtk::manage(new Gtk::Frame("Clipping de Reta"));
 	box_window->add(*frame_clipping);
