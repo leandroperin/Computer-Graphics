@@ -4,13 +4,13 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	viewport = _viewport;
 
 	Gtk::Grid *grid = Gtk::manage(new Gtk::Grid());
-	grid->set_column_spacing(10);
+	grid->set_column_spacing(16);
 	grid->set_border_width(10);
 	vbox->add(*grid);
 
 	Gtk::Frame *frame_functions = Gtk::manage(new Gtk::Frame("Menu de Funções"));
 	frame_functions->set_vexpand(true);
-	grid->attach(*frame_functions, 0, 0, 40, 2);
+	grid->attach(*frame_functions, 40, 0, 40, 2);
 
 	Gtk::Box *box_functions = Gtk::manage(new Gtk::Box(Gtk::ORIENTATION_VERTICAL, 0));
 	box_functions->set_spacing(5);
@@ -24,7 +24,7 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 	scrolledWindow_objects->set_size_request(10, 100);
 	box_functions->add(*scrolledWindow_objects);
 
-	Gtk::TextView *textView_objects = Gtk::manage(new Gtk::TextView());	
+	Gtk::TextView *textView_objects = Gtk::manage(new Gtk::TextView());
 	textView_objects->set_editable(false);
 	textView_objects->set_cursor_visible(false);
 	viewport->setObjectsList(textView_objects);
@@ -155,7 +155,7 @@ Interface::Interface(Gtk::Box *vbox, Viewport *_viewport) {
 
 	Gtk::Frame *frame_viewport = Gtk::manage(new Gtk::Frame("Viewport"));
 	frame_viewport->set_vexpand(true);
-	grid->attach(*frame_viewport, 40, 0, 50, 2);
+	grid->attach(*frame_viewport, 0, 0, 40, 2);
 
 	frame_viewport->add(*viewport);
 	viewport->show();
